@@ -29,6 +29,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        bindService(
+            Intent(this, TimerService::class.java),
+            serviceConnection,
+            BIND_AUTO_CREATE)
+
         findViewById<Button>(R.id.startButton).setOnClickListener {
             if(isConnected)
                 timerBinder.start(100)
