@@ -11,14 +11,17 @@ import android.os.Looper
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
+    var isConnected = false
     lateinit var timerBinder: TimerService.TimerBinder
 
     val serviceConnection = object : ServiceConnection{
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             timerBinder = service as TimerService.TimerBinder
+            isConnected = true
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
+            isConnected = false
         }
 
     }
