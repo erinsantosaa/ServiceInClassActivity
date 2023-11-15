@@ -14,6 +14,14 @@ class TimerService : Service() {
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.Default + job)
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (intent != null && intent.hasExtra("COUNTDOWN_VALUE")) {
+            countdownValue = intent.getIntExtra("COUNTDOWN_VALUE", 0)
+            startCountdown()
+        }
+        return START_NOT_STICKY
+    }
+
     private fun startCountdown() {
         if (!isRunning) {
             isRunning = true
@@ -30,6 +38,10 @@ class TimerService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
+    }
+
+    override fun onBind(intent: Intent): IBinder? {
+        return null
     }
 
 }
