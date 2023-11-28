@@ -63,4 +63,27 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_play -> {
+                if (isConnected) {
+                    timerBinder.start(100)
+                }
+                return true
+            }
+            R.id.action_pause -> {
+                if (isConnected) {
+                    timerBinder.pause()
+                }
+                return true
+            }
+            R.id.action_stop -> {
+                if (isConnected) {
+                    timerBinder.stop()
+                }
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
 }
